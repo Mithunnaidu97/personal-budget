@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal Budget • Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <h1>PERSONAL BUDGET</h1>
+        <small>Advanced dashboard (GitHub Pages ready) • Currency: ₹</small>
+      </div>
+      <nav class="nav">
+        <a class="btn secondary" href="add-expense.html">➕ Add Daily Expense</a>
+        <a class="btn" href="#gallery">🖼️ Dashboard Photos</a>
+        <button class="btn danger" id="resetBtn" type="button" title="Clears all saved data on this device">🧹 Reset data</button>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div class="hd">
+          <h2>Month Overview <span class="badge" id="monthPill">—</span></h2>
+          <div class="row">
+            <select class="select" id="monthSelect" aria-label="Select month"></select>
+          </div>
+        </div>
+        <div class="bd">
+          <div class="kpis">
+            <div class="kpi">
+              <div class="label">Total Income</div>
+              <div class="value">₹ <span id="kpiIncome">0</span></div>
+              <div class="sub">Mithun + Priya + Other</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Total Expenses</div>
+              <div class="value">₹ <span id="kpiExpense">0</span></div>
+              <div class="sub">Auto from daily entries</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Balance</div>
+              <div class="value">₹ <span id="kpiBalance">0</span></div>
+              <div class="sub">Income − Expenses</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Savings / Financial</div>
+              <div class="value">₹ <span id="kpiSavings">0</span></div>
+              <div class="sub">Tracks SIP/RD/Loans/Tax under “Financial”</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Top Expense Category</div>
+              <div class="value"><span id="kpiTopCat">—</span></div>
+              <div class="sub">Largest category this month</div>
+            </div>
+            <div class="kpi">
+              <div class="label">Entries Count</div>
+              <div class="value"><span id="kpiEntries">0</span></div>
+              <div class="sub">Daily rows saved</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="hd">
+          <h2>Income Inputs (per month)</h2>
+          <span class="badge">Edit & Save</span>
+        </div>
+        <div class="bd">
+          <div class="form">
+            <div>
+              <label class="hint">Mithun Salary (₹)</label>
+              <input class="input" type="number" id="incomeMithun" min="0" step="0.01" placeholder="e.g. 46000" />
+            </div>
+            <div>
+              <label class="hint">Priya Salary (₹)</label>
+              <input class="input" type="number" id="incomePriya" min="0" step="0.01" placeholder="e.g. 70000" />
+            </div>
+            <div>
+              <label class="hint">Other Income (₹)</label>
+              <input class="input" type="number" id="incomeOther" min="0" step="0.01" placeholder="e.g. 0" />
+            </div>
+            <div style="display:flex; align-items:end;">
+              <button class="btn secondary" id="saveIncomeBtn" type="button">💾 Save Income</button>
+            </div>
+          </div>
+          <div class="hint">Tip: Add daily expenses in the input page. Dashboard updates automatically.</div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <section class="card">
+        <div class="hd">
+          <h2>Expenses by Category (₹)</h2>
+          <span class="badge">Auto summary</span>
+        </div>
+        <div class="bd">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th class="right">Amount</th>
+                <th class="right">Share</th>
+              </tr>
+            </thead>
+            <tbody id="categoryTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd">
+          <h2>Charts</h2>
+          <span class="badge">Chart.js</span>
+        </div>
+        <div class="bd split">
+          <div>
+            <div class="hint">Category split (selected month)</div>
+            <canvas id="pieChart" height="220"></canvas>
+          </div>
+          <div>
+            <div class="hint">Expenses trend (this year)</div>
+            <canvas id="lineChart" height="220"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:16px;">
+      <div class="hd">
+        <h2>Recent Entries (this month)</h2>
+        <span class="badge">Last 10</span>
+      </div>
+      <div class="bd">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Sub</th>
+              <th class="right">Amount</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="recentTableBody"></tbody>
+        </table>
+        <div class="hint">Want to edit/delete entries? Use the “Add Daily Expense” page.</div>
+      </div>
+    </section>
+
+    <section class="card" id="gallery" style="margin-top:16px;">
+      <div class="hd">
+        <h2>Dashboard Photos (3)</h2>
+        <span class="badge">Replace images in /assets</span>
+      </div>
+      <div class="bd">
+        <div class="gallery">
+          <img src="assets/dashboard-1.png" alt="Dashboard preview 1" />
+          <img src="assets/dashboard-2.png" alt="Dashboard preview 2" />
+          <img src="assets/dashboard-3.png" alt="Dashboard preview 3" />
+        </div>
+        <div class="hint">Replace these 3 PNGs with your screenshots: assets/dashboard-1.png, dashboard-2.png, dashboard-3.png</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Data is saved in this browser only (localStorage). If you want cloud sync later, we can add Firebase.
+    </div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+  <script>
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      if(confirm("This will delete all saved income + expense data on this device. Continue?")){
+        localStorage.removeItem("pb_entries_v1");
+        localStorage.removeItem("pb_income_v1");
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>

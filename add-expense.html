@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal Budget • Add Daily Expense</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <h1>ADD DAILY EXPENSE</h1>
+        <small>Enter expenses day-wise • Auto shows on Dashboard</small>
+      </div>
+      <nav class="nav">
+        <a class="btn secondary" href="index.html">⬅️ Back to Dashboard</a>
+      </nav>
+    </header>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <section class="card">
+        <div class="hd">
+          <h2>Expense Entry Form</h2>
+          <span class="badge">Save • Edit • Delete</span>
+        </div>
+        <div class="bd">
+          <form id="expenseForm" class="form">
+            <input type="hidden" id="editId" />
+            <div>
+              <label class="hint">Date</label>
+              <input class="input" type="date" id="date" required />
+            </div>
+            <div>
+              <label class="hint">Category</label>
+              <select class="input" id="category"></select>
+            </div>
+            <div>
+              <label class="hint">Sub-category</label>
+              <select class="input" id="subCategory"></select>
+            </div>
+            <div>
+              <label class="hint">Amount (₹)</label>
+              <input class="input" type="number" id="amount" min="0" step="0.01" required />
+            </div>
+            <div style="grid-column:1 / -1;">
+              <label class="hint">Note (optional)</label>
+              <textarea class="textarea" id="note" placeholder="e.g. Groceries - Reliance, Petrol, etc."></textarea>
+            </div>
+            <div class="row" style="grid-column:1 / -1;">
+              <button class="btn secondary" id="submitBtn" type="submit">Add Entry</button>
+              <button class="btn" id="cancelEditBtn" type="button" style="display:none;">Cancel Edit</button>
+              <span class="hint">Tip: Use Edit button in the table to modify an entry.</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="hd">
+          <h2>Entries for Selected Month</h2>
+          <div class="row">
+            <select class="select" id="monthSelect"></select>
+          </div>
+        </div>
+        <div class="bd">
+          <div class="row" style="justify-content:space-between; margin-bottom:10px;">
+            <span class="badge">Month total: ₹ <span id="monthTotal">0</span></span>
+            <a class="btn" href="index.html">View in Dashboard</a>
+          </div>
+          <div style="overflow:auto;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Sub</th>
+                  <th class="right">Amount</th>
+                  <th>Note</th>
+                  <th class="center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="entriesBody"></tbody>
+            </table>
+          </div>
+          <div class="hint">All data is stored in your browser (GitHub Pages safe). If you clear browser data, entries will reset.</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer">Need a login + cloud sync for husband & wife? We can add Firebase later.</div>
+  </div>
+
+  <script type="module" src="js/addExpense.js"></script>
+</body>
+</html>
